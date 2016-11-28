@@ -15,8 +15,8 @@ class Streamobj():
 	ffreq = SWHear.SWHear()
 	ffreq.stream_start()
 	def __init__(self):
-		filepath = input('Input file name: ')
 		'''
+		filepath = input('Input file name: ')
 		self.wavfile = wave.open(filepath, 'rb') <<ADD IN LATER
 		'''
 		self.wavfile = wave.open("09 Darling, Mommy is Dead.wav", 'rb')
