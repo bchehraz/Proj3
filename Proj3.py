@@ -2,6 +2,7 @@ import scipy
 import pyaudio
 import wave
 import os, sys
+import SWHear
 
 CHUNK = 1024
 
@@ -16,8 +17,8 @@ data = wavfile.readframes(CHUNK)
 while len(data) > 0:
     stream1.write(data)
     data = wavfile.readframes(CHUNK)
+	
 #Terminate
 stream.stop_stream()
 stream.close()
-
 
