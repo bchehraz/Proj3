@@ -10,6 +10,12 @@ CHANNELS = 2
 RATE = 44100
 RECORD_SECONDS = 5
 
+def get_note(freq):
+	n = round((math.log(freq/220)/math.log(pow(2, 1/12))),1)
+	while n >= 12:
+		n -= 12
+	return n
+
 def Pitch(signal):
     signal = np.fromstring(signal, 'Int16');
     crossing = [math.copysign(1.0, s) for s in signal]
@@ -32,3 +38,5 @@ def recordAudio():
 		data = stream.read(CHUNK)
 		print (Pitch(data))
 		frames.append(data)
+		
+print(get_note(329.628))
