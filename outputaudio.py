@@ -29,7 +29,3 @@ if __name__ == '__main__':
 	play_tone(stream, 196.00) #G 
 	play_tone(stream, 246.94) #B 
 	play_tone(stream, 329.63) #E
-	
-	
-	
-
