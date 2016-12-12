@@ -18,10 +18,6 @@ from kivy.uix.gridlayout import GridLayout
 Config.set('graphics', 'width', 600)
 Config.set('graphics', 'height', 300)
 
-Builder.load_file('soundcontrols.kv')
-Builder.load_file('sound.kv')
-Builder.load_file('soundanalysis.kv')
-
 tuningmenu = {'E Standard': ['E', 'A', 'D', 'G', 'B', 'E'] , 
                 'Drop D': ['D', 'A', 'D', 'G', 'B', 'E'], 
                 'Half Step Down': ['Eb', 'Ab', 'Db', 'Gb', 'Bb', 'Eb'], 
