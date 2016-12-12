@@ -1,4 +1,7 @@
 import kivy 
+import gettuning 
+import outputaudio
+import recordaudio
 
 from kivy.app import App 
 from kivy.lang import Builder 
