@@ -18,35 +18,32 @@ def sine(frequency, length, rate):
 
     stream.write(chunk.astype(numpy.float32).tostring())"""
 def get_freq(note):
-	frequency = None
-	if int(note) < 12:
-		if note == 0: # C
-			frequency = 16.351
-		if note == 1: # C#/Db
-			frequency = 17.324
-		if note == 2: # D
-			frequency = 18.354
-		if note == 3: # D#/Eb
-			frequency = 19.445
-		if note == 4: # E
-			frequency = 20.601
-		if note == 5: # F
-			frequency = 21.827
-		if note == 6: # F#/Gb
-			frequency = 23.124
-		if note == 7: # G
-			frequency = 24.499
-		if note == 8: # G#/Ab
-			frequency = 25.956
-		if note == 9: # A
-			frequency = 27.5
-		if note == 10: # A#/Bb
-			frequency = 29.135
-		if note == 11: # B
-			frequency = 30.868
-		return frequency
+	if note == 'C' or note == 0: # C
+		return 16.351
+	elif note == 'C#' or note == 'Db' or note == 1: # C#/Db
+		return 17.324
+	elif note == 'D' or note == 2: # D
+		return 18.354
+	elif note == 'D#' or note == 'Eb' or note == 3: # D#/Eb
+		return 19.445
+	elif note == 'E' or note == 4: # E
+		return 20.601
+	elif note == 'F' or note == 5: # F
+		return 21.827
+	elif note == 'F#' or note == 'Gb' or note == 6: # F#/Gb
+		return 23.124
+	elif note == 'G' or note == 7: # G
+		return 24.499
+	elif note == 'G#' or note == 'Ab' or note == 8: # G#/Ab
+		return 25.956
+	elif note == 'A' or note == 9: # A
+		return 27.5
+	elif note == 'A#' or note == 10: # A#/Bb
+		return 29.135
+	elif note == 'B' or note == 11: # B
+		return 30.868
 	else:
-		print("Error! Invalid value for note!  Note must be an integer between 1 & 12")
+		return "Nothing found"
 			
 def play_tone(stream, note, octave, length=2, rate=44100):
 	chunks = []
@@ -60,4 +57,3 @@ def play_tone(stream, note, octave, length=2, rate=44100):
 # if __name__ == '__main__':
 # 	p = pyaudio.PyAudio()
 # 	stream = p.open(format=pyaudio.paFloat32, channels=1, rate=44100, output=1)
-	

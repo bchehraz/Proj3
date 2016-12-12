@@ -29,24 +29,9 @@
             ToggleButton: 
                 id: string6
                 text: root.string6text
-	AnchorLayout:
-		anchor_x: 'left'
-		anchor_y: 'center' 
-		size_hint: 1, 1
-		pos_hint: -1, 1
-        BoxLayout:
-			id: _sound_analysis
-			height: 24
-            Label: 
-                text: 'Frequency: '
-    AnchorLayout:
-    	anchor_x: 'right'
-		anchor_y: 'top'	
-		size_hint_x: -.65
-    	size_hint_y: -.9
-        BoxLayout: 
-        	id: _sound
-        	height: 24
-            orientation: 'horizontal'
-            Label: 
-                text: 'Sound Input: '
+	BoxLayout:
+	    Label: 
+	    	padding_bottom: 100
+	        text: 'Frequency: '
+	    Label: 
+	        text: 'Sound Input: '
