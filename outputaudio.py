@@ -1,8 +1,16 @@
+'''
+Course: CST 205 
+Date: December 11, 2016 
+Authors: Babak Chehraz, Shaikh Sultani, Quentin Minor 
+Abstract: The file will output the tones for the tuner to work when wanting to tune by ear. 
+'''
+
 import scipy, numpy, os, sys, pyaudio, struct, wave
 from matplotlib.mlab import find
 import pyaudio
 import numpy as np
 import math
+
 
 def sine(frequency, length, rate):
     length = int(length * rate)

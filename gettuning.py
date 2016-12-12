@@ -1,3 +1,10 @@
+'''
+Course: CST 205 
+Date: December 11, 2016 
+Authors: Babak Chehraz, Shaikh Sultani, Quentin Minor 
+Abstract: Simple class to get the proper tunings for each frequencies. 
+'''
+
 #Pass in name or identifier for tunings and output a dictionary of all
 # frequencies that need to be passed to outputaudio function
 def getTunings(name):
