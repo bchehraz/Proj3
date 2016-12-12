@@ -4,24 +4,49 @@
 		anchor_y: 'bottom'
 		orientation: 'horizontal'
 		spacing: 10
-		SoundControls:
-			id: _sound_controls
-			size_hint: 1, None
-			height: 48
-            background_color: (1,1.4,1,1)	
+        BoxLayout:
+    		id: _sound_controls
+    		size_hint: 1, None
+    		height: 48   	
+            orientation: 'horizontal'
+            spacing: 2.5
+            padding: 5
+            ToggleButton:
+                id: string1
+                text: 'E'
+            ToggleButton:
+                id: string2
+                text: 'A'
+            ToggleButton:
+                id: string3
+                text: 'D'
+            ToggleButton: 
+                id: string4
+                text: 'G'
+            ToggleButton:
+                id: string5
+                text: 'B'
+            ToggleButton: 
+                id: string6
+                text: 'E'
 	AnchorLayout:
 		anchor_x: 'left'
 		anchor_y: 'center' 
 		size_hint: 1, 1
 		pos_hint: -1, 1
-		SoundAnalysis: 
+        BoxLayout:
 			id: _sound_analysis
 			height: 24
+            Label: 
+                text: 'Frequency: '
     AnchorLayout:
     	anchor_x: 'right'
 		anchor_y: 'top'	
 		size_hint_x: -.65
     	size_hint_y: -.9
-        Sound: 
+        BoxLayout: 
         	id: _sound
         	height: 24
+            orientation: 'horizontal'
+            Label: 
+                text: 'Sound Input: '
