@@ -7,7 +7,8 @@
 		SoundControls:
 			id: _sound_controls
 			size_hint: 1, None
-			height: 48		
+			height: 48
+            background_color: (1,1.4,1,1)		
 	AnchorLayout:
 		anchor_x: 'left'
 		anchor_y: 'center' 
@@ -24,18 +25,3 @@
         Sound: 
         	id: _sound
         	height: 24
-<CustomDropDown>:
-    Button:
-        text: 'Drop D '
-        size_hint_y: None
-        height: 32
-        on_release: root.select('item1')
-    Label:
-        text: 'Unselectable item'
-        size_hint_y: None
-        height: 32
-    Button:
-        text: 'My second Item'
-        size_hint_y: None
-        height: 32
-        on_release: root.select('item2')
