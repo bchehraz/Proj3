@@ -1,3 +1,10 @@
+'''
+Course: CST 205 
+Date: December 11, 2016 
+Authors: Babak Chehraz, Shaikh Sultani, Quentin Minor 
+Abstract: 
+'''
+
 from kivy.core.audio import SoundLoader
 
 def getDuration(filename):

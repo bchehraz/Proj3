@@ -44,7 +44,7 @@ class Project(AnchorLayout):
             tunings.bind(on_press=lambda tunings: self.dropdownselect(tunings.text))
             dropdown.add_widget(tunings)
 
-        mainbutton = Button(text='E Standard', size_hint=(.2, .05), pos=(650, 75))
+        mainbutton = Button(text='E Standard', size_hint=(.2, .05), pos_hint={'x':350, 'y':150})
         mainbutton.bind(on_release=dropdown.open)
         dropdown.bind(on_select=lambda instance, x: setattr(mainbutton, 'text', x))
         self.add_widget(mainbutton)

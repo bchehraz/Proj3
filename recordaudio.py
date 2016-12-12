@@ -1,3 +1,10 @@
+'''
+Course: CST 205 
+Date: December 11, 2016 
+Authors: Babak Chehraz, Shaikh Sultani, Quentin Minor 
+Abstract: This file will take in the audio from the microphone to start the tuning process.
+'''
+
 import scipy, numpy, os, sys, pyaudio, struct, wave
 from matplotlib.mlab import find
 import pyaudio
