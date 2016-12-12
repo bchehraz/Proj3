@@ -27,24 +27,29 @@ tuningmenu = {'E Standard': ['E', 'A', 'D', 'G', 'B', 'E'] ,
                 'Half Step Down': ['Eb', 'Ab', 'Db', 'Gb', 'Bb', 'Eb'], 
                 'Drop Db': ['Db', 'Ab', 'Db', 'Gb', 'Bb', 'Eb'], 
                 'D Standard': ['E', 'A', 'D', 'G', 'B', 'E'], 
-                'Drop C': ['C', 'G', 'C', 'F', 'A', 'D'], 
+                'Drop C': ['C', 'G', 'C', 'F', 'A', 'D'],
                 'C Standard': ['C', 'F', 'B', 'E', 'G', 'C']}
 
 dropdown = DropDown()
 
 class Project(AnchorLayout):
+
     def __init__(self, **kwargs):
         super(Project, self).__init__(**kwargs)
         for tuning in tuningmenu:
             tunings = Button(text=str(tuning), size_hint_y=None, height=32)
-            tunings.bind(on_release=lambda btn: dropdown.select(tunings.text))
-            #tunings.bind(on_press=dropdownselect(tunings.text))
+            tunings.bind(on_release=lambda tunings: dropdown.select(tunings.text))
+            tunings.bind(on_press=lambda tunings: self.dropdownselect(tunings.text))
             dropdown.add_widget(tunings)
 
         mainbutton = Button(text='E Standard', size_hint=(.2, .05), pos=(300, 100))
         mainbutton.bind(on_release=dropdown.open)
         dropdown.bind(on_select=lambda instance, x: setattr(mainbutton, 'text', x))
         self.add_widget(mainbutton)
+
+    def dropdownselect(self, selection):
+        
+        print (self._sound_controls)
 
 
 class ProjectApp(App):
