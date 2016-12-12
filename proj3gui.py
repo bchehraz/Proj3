@@ -13,7 +13,7 @@ from kivy.base import runTouchApp
 from kivy.uix.togglebutton import ToggleButton
 from kivy.uix.label import Label
 from kivy.uix.textinput import TextInput
-from kivy.uix.gridlayout import GridLayout
+from kivy.properties import StringProperty
 
 Config.set('graphics', 'width', 600)
 Config.set('graphics', 'height', 300)
@@ -34,6 +34,8 @@ dropdown = DropDown()
 
 class Project(AnchorLayout):
 
+    string1text = StringProperty(str(2))
+
     def __init__(self, **kwargs):
         super(Project, self).__init__(**kwargs)
         for tuning in tuningmenu:
@@ -48,8 +50,8 @@ class Project(AnchorLayout):
         self.add_widget(mainbutton)
 
     def dropdownselect(self, selection):
-        
-        print (self._sound_controls)
+        self.string1text = "D"
+        print ("works")
 
 
 class ProjectApp(App):
