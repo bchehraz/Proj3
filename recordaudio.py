@@ -25,12 +25,11 @@ def Pitch(signal):
     f0=round(len(index) *RATE /(2*np.prod(len(signal))))
     return f0;
 
-def recordAudio():
+def recordAudio(object):
 	
 	audio = pyaudio.PyAudio()
 	
 	stream = audio.open(format=FORMAT, channels=CHANNELS, rate=RATE, input=True, frames_per_buffer=CHUNK)
-	
 
 	print ("* Recording audio...")
 		
@@ -38,6 +37,6 @@ def recordAudio():
 	
 	while True:
 		data = stream.read(CHUNK)
-		print (Pitch(data))
+		object.changeInputText(Pitch(data))
+		print(Pitch(data))
 		frames.append(data)
-		

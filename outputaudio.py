@@ -10,13 +10,14 @@ def sine(frequency, length, rate):
     return numpy.sin(numpy.arange(length) * factor)
 
 
-"""def play_tone(stream, frequency, length=2, rate=44100):
+def play_tone(stream, frequency, length=3, rate=44100):
     chunks = []
     chunks.append(sine(frequency, length, rate))
 
     chunk = numpy.concatenate(chunks) * 0.25
 
-    stream.write(chunk.astype(numpy.float32).tostring())"""
+    stream.write(chunk.astype(numpy.float32).tostring())
+
 def get_freq(note):
 	if note == 'C' or note == 0: # C
 		return 16.351
@@ -45,15 +46,15 @@ def get_freq(note):
 	else:
 		return "Nothing found"
 			
-def play_tone(stream, note, octave, length=2, rate=44100):
-	chunks = []
-	frequency = get_freq(note)
-	chunks.append(sine(frequency*(2^octave), length, rate))
+# def play_tone(stream, note, octave, length=2, rate=44100):
+# 	chunks = []
+# 	frequency = get_freq(note)
+# 	chunks.append(sine(frequency*(2^octave), length, rate))
 
-	chunk = numpy.concatenate(chunks) * 0.25
+# 	chunk = numpy.concatenate(chunks) * 0.25
 
-	stream.write(chunk.astype(numpy.float32).tostring())
+# 	stream.write(chunk.astype(numpy.float32).tostring())
 
 # if __name__ == '__main__':
-# 	p = pyaudio.PyAudio()
-# 	stream = p.open(format=pyaudio.paFloat32, channels=1, rate=44100, output=1)
+#  	p = pyaudio.PyAudio()
+#  	stream = p.open(format=pyaudio.paFloat32, channels=1, rate=44100, output=1)
