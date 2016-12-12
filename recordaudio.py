@@ -10,10 +10,12 @@ CHANNELS = 2
 RATE = 44100
 RECORD_SECONDS = 5
 
-def get_note(freq):
-	n = round((math.log(freq/220)/math.log(pow(2, 1/12))),1)
-	while n >= 12:
+def get_note(freq):#Returns the musical note played
+	n = round((math.log(freq/220)/math.log(pow(2, 1/12))),1) #Get Semitones away from A3(220Hz)
+	while n >= 12:#Get n in terms of 0-11 semitones
 		n -= 12
+	while n < 0
+		n += 12
 	return n
 
 def Pitch(signal):
@@ -39,4 +41,4 @@ def recordAudio():
 		print (Pitch(data))
 		frames.append(data)
 		
-print(get_note(329.628))
+print(get_note(27.5))

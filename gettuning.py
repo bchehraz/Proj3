@@ -8,7 +8,7 @@ def getTunings(name):
 		tunings[2] = 587.33  #D
 		tunings[3] = 783.99  #G
 		tunings[4] = 987.77  #B
-		tunings[5] = 1318/51 #E
+		tunings[5] = 1318.51 #E
 	elif name == "Drop D":
 		tunings[0] = 293.66  #D
 		tunings[1] = 440.00  #A
