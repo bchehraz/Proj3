@@ -8,6 +8,9 @@ from kivy.uix.dropdown import DropDown
 from kivy.uix.button import Button 
 from kivy.base import runTouchApp 
 from kivy.uix.togglebutton import ToggleButton
+from kivy.uix.label import Label
+from kivy.uix.textinput import TextInput
+from kivy.uix.gridlayout import GridLayout
 
 Config.set('graphics', 'width', 600)
 Config.set('graphics', 'height', 300)
@@ -27,32 +30,37 @@ tuningmenu = {'E Standard': ['E', 'A', 'D', 'G', 'B', 'E'] ,
 dropdown = DropDown()
 
 class Project(AnchorLayout):
-    pass
-
-class ProjectApp(App):
-    def build(self): 
-        DropDownLayout = AnchorLayout(orientation='horizontal')
+    def __init__(self, **kwargs):
+        super(Project, self).__init__(**kwargs)
         for tuning in tuningmenu:
             tunings = Button(text=str(tuning), size_hint_y=None, height=32)
             tunings.bind(on_release=lambda btn: dropdown.select(tunings.text))
-            tunings.bind(on_press=dropdownselect(tunings.text))
+            #tunings.bind(on_press=dropdownselect(tunings.text))
             dropdown.add_widget(tunings)
 
         mainbutton = Button(text='E Standard', size_hint=(.2, .05), pos=(300, 100))
         mainbutton.bind(on_release=dropdown.open)
         dropdown.bind(on_select=lambda instance, x: setattr(mainbutton, 'text', x))
-        DropDownLayout.add_widget(mainbutton)
-        string1 = ToggleButton(text='1', size_hint=(.2, .05))
-        string2 = ToggleButton(text='2')
-        string3 = ToggleButton(text='3')
-        string4 = ToggleButton(text='4')
-        string5 = ToggleButton(text='5')
-        string6 = ToggleButton(text='6')
-        return DropDownLayout
-    def dropdownselect(selection):
+        self.add_widget(mainbutton)
+
+
+class ProjectApp(App):
+    def build(self): 
+        return Project()
+
+  #       string1 = ToggleButton(text='1', size_hint=(.2, .05))
+  #       string2 = ToggleButton(text='2')
+  #       string3 = ToggleButton(text='3')
+  #       string4 = ToggleButton(text='4')
+  #       string5 = ToggleButton(text='5')
+  #       string6 = ToggleButton(text='6')
+  #       return DropDownLayout
+		
+		
+    """def dropdownselect(selection):
         print (self.selection)
-        # for i in range(0, 6):
-        #     tuningmenu(selection)
+        for i in range(0, 6):
+             tuningmenu(selection)"""
 
 
 # for notes in tuningmenu:
