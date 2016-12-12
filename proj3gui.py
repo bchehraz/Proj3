@@ -18,7 +18,7 @@ from kivy.properties import StringProperty
 Config.set('graphics', 'width', 600)
 Config.set('graphics', 'height', 300)
 
-tuningmenu = {'E Standard': ['E', 'A', 'D', 'G', 'B', 'E'] , 
+tuningmenu = {  'E Standard': ['E', 'A', 'D', 'G', 'B', 'E'], 
                 'Drop D': ['D', 'A', 'D', 'G', 'B', 'E'], 
                 'Half Step Down': ['Eb', 'Ab', 'Db', 'Gb', 'Bb', 'Eb'], 
                 'Drop Db': ['Db', 'Ab', 'Db', 'Gb', 'Bb', 'Eb'], 
@@ -30,7 +30,12 @@ dropdown = DropDown()
 
 class Project(AnchorLayout):
 
-    string1text = StringProperty(str(2))
+    string1text = StringProperty(str("E"))
+    string2text = StringProperty(str("A"))
+    string3text = StringProperty(str("D"))
+    string4text = StringProperty(str("G"))
+    string5text = StringProperty(str("B"))
+    string6text = StringProperty(str("E"))
 
     def __init__(self, **kwargs):
         super(Project, self).__init__(**kwargs)
@@ -46,7 +51,14 @@ class Project(AnchorLayout):
         self.add_widget(mainbutton)
 
     def dropdownselect(self, selection):
-        self.string1text = "D"
+        #self.string1.text = tuningmenu[selection].get(0)
+        #print (tuningmenu[selection])
+        self.string1text = str(tuningmenu[selection][0])
+        self.string2text = str(tuningmenu[selection][1])
+        self.string3text = str(tuningmenu[selection][2])
+        self.string4text = str(tuningmenu[selection][3])
+        self.string5text = str(tuningmenu[selection][4])
+        self.string6text = str(tuningmenu[selection][5])
         print ("works")
 
 
