@@ -1,3 +1,10 @@
+'''
+Course: CST 205 
+Date: December 11, 2016 
+Authors: Babak Chehraz, Shaikh Sultani, Quentin Minor 
+Abstract: This is the GUI. This file will take all the sound files that were made prior to add the sound listening, frequencies,
+output, and tones to the GUI. It also formats the gui for how we want it too look. 
+'''
 import kivy 
 import gettuning 
 import outputaudio
@@ -44,7 +51,7 @@ class Project(AnchorLayout):
             tunings.bind(on_press=lambda tunings: self.dropdownselect(tunings.text))
             dropdown.add_widget(tunings)
 
-        mainbutton = Button(text='E Standard', size_hint=(.2, .05), pos_hint={'x':350, 'y':150})
+        mainbutton = Button(text='E Standard', size_hint=(.2, .05), pos_hint={'x':350, 'y':15016786})
         mainbutton.bind(on_release=dropdown.open)
         dropdown.bind(on_select=lambda instance, x: setattr(mainbutton, 'text', x))
         self.add_widget(mainbutton)
