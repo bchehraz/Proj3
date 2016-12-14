@@ -38,7 +38,7 @@ def get_freq(note):
 		return 25.956
 	elif note == 'A' or note == 9: # A
 		return 27.5
-	elif note == 'A#' or note == 10: # A#/Bb
+	elif note == 'A#' or note == 10 or note == 'Bb': # A#/Bb
 		return 29.135
 	elif note == 'B' or note == 11: # B
 		return 30.868
@@ -54,7 +54,7 @@ def get_freq(note):
 
 #     stream.write(chunk.astype(numpy.float32).tostring())
 
-def play_tone(stream, note, octave, length=1, rate=44100):
+def play_tone(stream, note, octave, length=5, rate=44100):
 	chunks = []
 	frequency = get_freq(note)
 	chunks.append(sine(frequency*(math.pow(2, octave)), length, rate))
