@@ -17,6 +17,7 @@ from multiprocessing import Process
 from kivy.app import App 
 from kivy.lang import Builder 
 from kivy.uix.anchorlayout import AnchorLayout
+from kivy.uix.relativelayout import RelativeLayout
 from kivy.config import Config
 from kivy.uix.dropdown import DropDown
 from kivy.uix.button import Button 
@@ -56,9 +57,9 @@ tuningmenu = {  'E Standard': ['E', 'A', 'D', 'G', 'B', 'E'],
 dropdown = DropDown()
 p = pyaudio.PyAudio()
 p2 = pyaudio.PyAudio()
-stream = p.open(format=pyaudio.paFloat32, channels=1, rate=44100, output=1)#output
-
-class Project(AnchorLayout):
+outputstream = p.open(format=pyaudio.paFloat32, channels=1, rate=44100, output=1)#outputting audio
+inputstream = p2.open(format=FORMAT, channels=CHANNELS, rate=RATE, input=True, frames_per_buffer=CHUNK)#inputstream
+class Project(RelativeLayout):
     string1text = StringProperty(str("E"))
     string2text = StringProperty(str("A"))
     string3text = StringProperty(str("D"))
@@ -68,10 +69,15 @@ class Project(AnchorLayout):
 
     freqText = StringProperty(str("Target Freq"))
     inputText = StringProperty(str("Sound Input"))
+    octaveLevelText = StringProperty(str("Octave: 4"))
 
-    tunings = gettuning.getTunings("E Standard")
+    currentSelection = "E Standard"
+    tunings = gettuning.getTunings(currentSelection)
 
     playing = False
+    octave = 4
+    outputAudioThread = Thread()
+    
 
     def __init__(self, **kwargs):
         super(Project, self).__init__(**kwargs)
@@ -81,23 +87,18 @@ class Project(AnchorLayout):
         recordAudioThread.start()
 
         for tuning in tuningmenu:
-            tunings = Button(text=str(tuning), size_hint_y=None, height=24)
+            tunings = Button(text=str(tuning), size_hint_y=None, height=30)
             tunings.bind(on_release=lambda tunings: dropdown.select(tunings.text))
             tunings.bind(on_press=lambda tunings: self.dropdownselect(tunings.text))
             dropdown.add_widget(tunings)
 
-        mainbutton = Button(text='E Standard', size_hint=(.2, .05), pos_hint=(650, 75))
+        mainbutton = Button(text='E Standard', size_hint=(.2, .08), pos=(300, 75))
         mainbutton.bind(on_release=dropdown.open)
         dropdown.bind(on_select=lambda instance, x: setattr(mainbutton, 'text', x))
         self.add_widget(mainbutton)
 
-        # print("X")
-        # recordingthread.start()
-        # recordingthread.join()
-
     def dropdownselect(self, selection):
-        #self.string1.text = tuningmenu[selection].get(0)
-        #print (tuningmenu[selection])
+        self.currentSelection = selection
         self.string1text = str(tuningmenu[selection][0])
         self.string2text = str(tuningmenu[selection][1])
         self.string3text = str(tuningmenu[selection][2])
@@ -106,41 +107,27 @@ class Project(AnchorLayout):
         self.string6text = str(tuningmenu[selection][5])
         self.tunings = gettuning.getTunings(selection)
 
-    def string1Callback(self):
-        newthread = Thread(None, outputaudio.play_tone, args=(stream,self.tunings[0]))
-        newthread.daemon = True
-        newthread.start()
+    def stringPlay(self, index):
+        #outputAudioThread = Thread(None, outputaudio.play_tone, args=(stream,self.tunings[index],))
+        self.outputAudioThread = Thread(None, outputaudio.play_tone, args=(outputstream,tuningmenu[self.currentSelection][index],self.octave))
+        self.outputAudioThread.daemon = True
+        self.playing = True
+        self.outputAudioThread.start()
 
-    def string2Callback(self):
-        newthread = Thread(None, outputaudio.play_tone, args=(stream,self.tunings[1]))
-        newthread.daemon = True
-        newthread.start()
-
-    def string3Callback(self):
-        newthread = Thread(None, outputaudio.play_tone, args=(stream,self.tunings[2]))
-        newthread.daemon = True
-        newthread.start()
-
-    def string4Callback(self):
-        newthread = Thread(None, outputaudio.play_tone, args=(stream,self.tunings[3]))
-        newthread.daemon = True
-        newthread.start()
-
-    def string5Callback(self):
-        newthread = Thread(None, outputaudio.play_tone, args=(stream,self.tunings[4]))
-        newthread.daemon = True
-        newthread.start()
-
-    def string6Callback(self):
-        newthread = Thread(None, outputaudio.play_tone, args=(stream,self.tunings[5]))
-        newthread.daemon = True
-        newthread.start()
 
     def changeFreqText(self, index):
         self.freqText = str(self.tunings[index])
 
     def changeInputText(self, input):
         self.inputText = str(input)
+        self.octaveLevelText = "Octave: " + str(self.octave)
+
+    def increaseOctave(self):
+        self.octave += 1
+        self.octaveLevelText = "Octave: " + str(self.octave)
+
+    def decreaseOctave(self):
+        self.octave -= 1
 
     def Pitch(self, signal):
         signal = np.fromstring(signal, 'Int16');
@@ -149,19 +136,49 @@ class Project(AnchorLayout):
         f0=round(len(index) *RATE /(2*np.prod(len(signal))))
         return f0;
 
-    def recordAudio(self):
-    
-        audio = pyaudio.PyAudio()
+    def get_note(self, freq):#Returns the musical note played
+        n = round((math.log(freq/220.0)/math.log(pow(2.0, 1.0/12.0))),1) #Get Semitones away from A3(220Hz)
+        while n >= 12:#Get n in terms of 0-11 semitones
+            n -= 12
+        while n < 0:
+            n += 12
         
-        stream = audio.open(format=FORMAT, channels=CHANNELS, rate=RATE, input=True, frames_per_buffer=CHUNK)
+        if n == 0:
+            return 'C'
+        elif n == 1:
+            return 'C#/Db'
+        elif n == 2:
+            return 'D'
+        elif n == 3:
+            return 'D#/Eb'
+        elif n == 4:
+            return 'E'
+        elif n == 5:
+            return 'F'
+        elif n == 6:
+            return 'F#/Gb'
+        elif n == 7:
+            return 'G'
+        elif n == 8:
+            return 'G#/Ab'
+        elif n == 9:
+            return 'A'
+        elif n == 10:
+            return 'A#'
+        elif n == 11:
+            return 'B'
+        else:
+            return ''
+    def recordAudio(self):
 
         print ("* Recording audio...")
             
         frames = []
         
         while True:
-            data = stream.read(CHUNK)
-            self.changeInputText(self.Pitch(data))
+            data = inputstream.read(CHUNK)
+            freq = self.Pitch(data)
+            self.changeInputText(str(self.get_note(freq))+"-"+str(freq)+"-")
             frames.append(data)
 
 class ProjectApp(App):

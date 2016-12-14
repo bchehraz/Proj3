@@ -1,5 +1,5 @@
 <Project>:
-	AnchorLayout: 	
+	AnchorLayout:
 		anchor_x: 'center'
 		anchor_y: 'bottom'
 		orientation: 'horizontal'
@@ -7,42 +7,64 @@
         BoxLayout:
     		id: _sound_controls
     		size_hint: 1, None
-    		height: 48   	
+    		height: 75   	
             orientation: 'horizontal'
             spacing: 2.5
             padding: 5
+            BoxLayout:
+                id: octaves
+                orientation: 'vertical'
+                Label:
+                    text: root.octaveLevelText
+                BoxLayout:
+                    orientation: 'horizontal'
+                    Button:
+                        id: octaveDown
+                        text: '-'
+                        on_release: root.decreaseOctave()
+                    Button: 
+                        id: octaveUp
+                        text: '+'
+                        on_release: root.increaseOctave()
             Button:
                 id: string1
                 text: root.string1text
                 on_press: root.changeFreqText(0)
-                on_release: root.string1Callback()
+                on_release: root.stringPlay(0)
             Button:
                 id: string2
                 text: root.string2text
                 on_press: root.changeFreqText(1)
-                on_release: root.string2Callback()
+                on_release: root.stringPlay(1)
             Button:
                 id: string3
                 text: root.string3text
                 on_press: root.changeFreqText(2)
-                on_release: root.string3Callback()
+                on_release: root.stringPlay(2)
             Button: 
                 id: string4
                 text: root.string4text
                 on_press: root.changeFreqText(3)
-                on_release: root.string4Callback()
+                on_release: root.stringPlay(3)
             Button:
                 id: string5
                 text: root.string5text
                 on_press: root.changeFreqText(4)
-                on_release: root.string5Callback()
+                on_release: root.stringPlay(4)
             Button: 
                 id: string6
                 text: root.string6text
                 on_press: root.changeFreqText(5)
-                on_release: root.string6Callback()
-    BoxLayout:
-	    Label:
-	    	text: root.freqText
-		Label:
-	    	text: root.inputText
+                on_release: root.stringPlay(5)
+    AnchorLayout:
+        pos: -200,0
+        outline_color: (100,255,255)
+        Label:
+            font_size: 36
+        	text: root.freqText
+    AnchorLayout:
+        pos: 200,0
+        size_hint: 1,1
+    	Label:
+            font_size: 36
+        	text: root.inputText
