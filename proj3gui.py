@@ -27,6 +27,9 @@ from kivy.uix.label import Label
 from kivy.uix.textinput import TextInput
 from kivy.properties import StringProperty
 from kivy.core.window import Window 
+from kivy.core.image import Image 
+from kivy.graphics import Color, Rectangle
+from kivy.base import EventLoop
 
 import scipy, numpy, os, sys, pyaudio, struct, wave
 from matplotlib.mlab import find
@@ -42,9 +45,7 @@ RATE = 44100
 RECORD_SECONDS = 5
 #######
 
-
-
-Window.size=(700, 400)
+Window.size=(600, 350)
 
 tuningmenu = {  'E Standard': ['E', 'A', 'D', 'G', 'B', 'E'], 
                 'Drop D': ['D', 'A', 'D', 'G', 'B', 'E'], 

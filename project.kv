@@ -1,4 +1,4 @@
-<Project>:
+<Project>: 
 	AnchorLayout:
 		anchor_x: 'center'
 		anchor_y: 'bottom'
@@ -68,3 +68,21 @@
     	Label:
             font_size: 36
         	text: root.inputText
+                on_release: root.string6Callback()
+    BoxLayout:
+	    Label:
+	    	text: root.freqText
+		Label:
+	    	text: root.inputText
+    AnchorLayout:
+        anchor_y: 'top'
+        anchor_x: 'center'
+        Image:
+            source: 'Dimetune.png'
+            keep_ratio: True
+            size_hint_y: .45
+            size_hint_x: .45
+            pos_x: 100
+            anchor_y: 'top'
+            width: self.parent.width
+            height: self.parent.width/self.image_ratio
