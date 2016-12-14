@@ -9,6 +9,7 @@ import kivy
 import gettuning 
 import outputaudio
 import recordaudio
+import time
 
 import pyaudio
 import os
@@ -50,7 +51,7 @@ tuningmenu = {  'E Standard': ['E', 'A', 'D', 'G', 'B', 'E'],
                 'Drop D': ['D', 'A', 'D', 'G', 'B', 'E'], 
                 'Half Step Down': ['Eb', 'Ab', 'Db', 'Gb', 'Bb', 'Eb'], 
                 'Drop Db': ['Db', 'Ab', 'Db', 'Gb', 'Bb', 'Eb'], 
-                'D Standard': ['E', 'A', 'D', 'G', 'B', 'E'], 
+                'D Standard': ['D', 'G', 'C', 'F', 'A', 'D'], 
                 'Drop C': ['C', 'G', 'C', 'F', 'A', 'D'],
                 'C Standard': ['C', 'F', 'B', 'E', 'G', 'C']}
 
@@ -116,7 +117,7 @@ class Project(RelativeLayout):
 
 
     def changeFreqText(self, index):
-        self.freqText = str(self.tunings[index])
+        self.freqText = str(self.get_note(self.tunings[index])) + "(" + str(self.tunings[index]) + ")"
 
     def changeInputText(self, input):
         self.inputText = str(input)
@@ -133,7 +134,7 @@ class Project(RelativeLayout):
         signal = np.fromstring(signal, 'Int16');
         crossing = [math.copysign(1.0, s) for s in signal]
         index = find(np.diff(crossing));
-        f0=round(len(index) *RATE /(2*np.prod(len(signal))))
+        f0=round(len(index) *RATE /(2*np.prod(len(signal))), 1)
         return f0;
 
     def get_note(self, freq):#Returns the musical note played
@@ -142,31 +143,33 @@ class Project(RelativeLayout):
             n -= 12
         while n < 0:
             n += 12
-        
-        if n == 0:
-            return 'C'
-        elif n == 1:
-            return 'C#/Db'
-        elif n == 2:
-            return 'D'
-        elif n == 3:
-            return 'D#/Eb'
-        elif n == 4:
-            return 'E'
-        elif n == 5:
-            return 'F'
-        elif n == 6:
-            return 'F#/Gb'
-        elif n == 7:
-            return 'G'
-        elif n == 8:
-            return 'G#/Ab'
-        elif n == 9:
+        np = round(n,0)
+        if np == 0:
             return 'A'
-        elif n == 10:
-            return 'A#'
-        elif n == 11:
+        elif np == 1:
+            return 'A#/Bb'
+        elif np == 2:
             return 'B'
+        elif np == 3:
+            return 'C'
+        elif np == 4:
+            return 'C# / Db'
+        elif np == 5:
+            return 'D'
+        elif np == 6:
+            return 'D# /  Eb'
+        elif np == 7:
+            return 'E'
+        elif np == 8:
+            return 'F'
+        elif np == 9:
+            return 'F# / Gb'
+        elif np == 10:
+            return 'G'
+        elif np == 11:
+            return 'G# / Ab'
+        if np == 12:
+            return 'A'
         else:
             return ''
     def recordAudio(self):
@@ -180,6 +183,7 @@ class Project(RelativeLayout):
             freq = self.Pitch(data)
             self.changeInputText(str(self.get_note(freq))+"-"+str(freq)+"-")
             frames.append(data)
+            time.sleep(.2)
 
 class ProjectApp(App):
     def build(self): 
