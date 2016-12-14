@@ -1,5 +1,6 @@
 <Project>:
-	AnchorLayout: 	
+    color: 1,0,1,0   
+	AnchorLayout: 
 		anchor_x: 'center'
 		anchor_y: 'bottom'
 		orientation: 'horizontal'
@@ -46,3 +47,16 @@
 	    	text: root.freqText
 		Label:
 	    	text: root.inputText
+    AnchorLayout:
+        anchor_y: 'top'
+        anchor_x: 'center'
+        Image:
+            source: 'Dimetune.png'
+            keep_ratio: True
+            size_hint_y: .45
+            size_hint_x: .45
+            pos_x: 100
+            anchor_y: 'top'
+            width: self.parent.width
+            height: self.parent.width/self.image_ratio
+
